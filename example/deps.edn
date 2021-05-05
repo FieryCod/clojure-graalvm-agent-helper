@@ -1,0 +1,20 @@
+{:paths ["src"]
+ :deps {org.clojure/clojure                              {:mvn/version "1.10.3"}
+        io.github.FieryCod/clojure-graalvm-agent-helper  {:mvn/version "0.0.1"}}
+ :aliases {:deps {:replace-deps {org.clojure/tools.deps.alpha {:mvn/version "0.11.910"}
+                                 org.slf4j/slf4j-nop {:mvn/version "1.7.25"}}
+                  :ns-default clojure.tools.cli.api}
+           :test {:extra-paths ["test"]}
+
+           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                     :exec-fn hf.depstar/uberjar
+                     :exec-args {:aot true}}
+
+           ;; build a jar (library):
+           :jar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                 :exec-fn hf.depstar/jar
+                 :exec-args {}}
+           ;; generic depstar alias, use with jar or uberjar function name:
+           :depstar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                     :ns-default hf.depstar
+                     :exec-args {}}}}
